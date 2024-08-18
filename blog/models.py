@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -6,7 +7,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 class Category(MPTTModel):
     name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
     parent = TreeForeignKey('self', related_name='children', on_delete=models.SET_NULL, null=True, blank=True)
 
     class MPTTMeta:
@@ -30,7 +31,7 @@ class Tag(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
     image = models.ImageField(upload_to='images/')
     text = models.TextField()
     category = models.ForeignKey(Category, related_name='post', on_delete=models.SET_NULL, null=True)
@@ -52,8 +53,8 @@ class Recipe(models.Model):
     serves = models.CharField(max_length=50)
     prep_time = models.PositiveIntegerField(default=0)
     cook_time = models.PositiveIntegerField(default=0)
-    ingredients = models.TextField()
-    directions = models.TextField()
+    ingredients = RichTextField()
+    directions = RichTextField()
     post = models.ForeignKey(Post, related_name='recipe', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):

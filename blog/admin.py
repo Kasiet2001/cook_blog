@@ -23,6 +23,8 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     list_display = ['title', 'category', 'author', 'created_at', 'id']
     inlines = [RecipeInline]
+    save_as = True
+    save_on_top = True
 
 
 @admin.register(models.Recipe)

@@ -4,6 +4,12 @@ from django.views import generic
 from .models import Post
 
 
+class HomeView(generic.ListView):
+    model = Post
+    paginate_by = 9
+    template_name = 'blog/home.html'
+
+
 class PostListView(generic.ListView):
     model = Post
 
