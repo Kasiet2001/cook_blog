@@ -6,7 +6,7 @@
         {% get_last_posts %}
         {% get_categories %}
 
-        <li><a href="about.html">О нас</a></li>
-        <li><a href="foodieblog/contact.html">Контакты</a></li>
+        <li><a href="{% url 'contact:about' %}">О нас</a></li>
+        <li><a href="{% url 'contact:contact' %}">Контакты</a></li>
     </ul>
 </nav>
